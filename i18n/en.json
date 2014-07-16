@@ -4,10 +4,10 @@
             "Jack Phoenix <jack@countervandalism.net>"
         ]
     },
-    "right-staffedit": "Tag edits as official [[s:ShoutWiki Staff|ShoutWiki staff]] edits",
-    "staffedit": "Official ShoutWiki staff edit",
+    "right-staffedit": "Tag edits as official staff edits",
+    "sw-staffedit": "Official ShoutWiki staff edit",
     "staffedit-selector": "Tag this edit as:",
     "staffedit-none": "none",
-    "tag-staffedit": "[[s:ShoutWiki Staff|ShoutWiki staff edit]]",
-    "tag-staffedit-description": "Edits made by [[s:ShoutWiki Staff|ShoutWiki staff]] in their official capacity"
+    "tag-swstaffedit": "[[s:ShoutWiki Staff|ShoutWiki staff edit]]",
+    "tag-swstaffedit-description": "Edits made by [[s:ShoutWiki Staff|ShoutWiki staff]] in their official capacity"
 }

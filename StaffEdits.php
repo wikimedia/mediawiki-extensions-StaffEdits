@@ -25,6 +25,18 @@ $wgExtensionCredits['other'][] = array(
 	'url' => 'https://www.mediawiki.org/wiki/Extension:StaffEdits',
 );
 
+/**
+ * A simple lowercase abbreviation of the
+ * organization the Staff are a part of.
+ *
+ * So "sw" for ShoutWiki, or "wmf" for
+ * the Wikimedia Foundation.
+ *
+ * Once you set this, you really shouldn't
+ * change it.
+ */
+$wgStaffEditsMessagePrefix = 'sw';
+
 $wgAvailableRights[] = 'staffedit';
 $wgGroupPermissions['staff']['staffedit'] = true;
 

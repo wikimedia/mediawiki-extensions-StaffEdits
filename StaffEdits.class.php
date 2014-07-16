@@ -1,6 +1,17 @@
 <?php
 
 class StaffEdits {
+
+	/**
+	 * Returns an organization specific message key
+	 *
+	 * @param string $name
+	 * @return string
+	 */
+	protected static function msgKey( $name ) {
+		global $wgStaffEditsMessagePrefix;
+		return $wgStaffEditsMessagePrefix . $name;
+	}
 	/**
 	 * Display the tag selector drop-down menu on action=edit view.
 	 *
@@ -22,7 +33,7 @@ class StaffEdits {
 		// don't really need to give a damn about the copyright warning, as they
 		// should know the basics of (c)-right already. So let's just inject
 		// the selector below that -- at least it's still above div.editButtons!
-		$staffEditMsg = $out->msg( 'staffedit' )->plain();
+		$staffEditMsg = $out->msg( self::msgKey( 'staffedit' ) )->plain();
 		$noneMsg = $out->msg( 'staffedit-none' )->plain();
 		$editPage->editFormTextAfterWarn .= wfMessage( 'staffedit-selector' )->plain() .
 		"<select name=\"staffedit-tag\">
@@ -40,7 +51,7 @@ class StaffEdits {
 	 * @return bool
 	 */
 	public static function onListDefinedTags( array &$tags ) {
-		$tags[] = 'staffedit';
+		$tags[] = self::msgKey( 'staffedit' );
 		return true;
 	}
 
@@ -69,7 +80,7 @@ class StaffEdits {
 			$revId = $rc->getAttribute( 'rc_this_oldid' );
 			// In the future we might want to support different
 			// types of staff edit tags
-			ChangeTags::addTags( 'staffedit', $rcId, $revId );
+			ChangeTags::addTags( self::msgKey( 'staffedit' ), $rcId, $revId );
 		}
 
 		return true;
