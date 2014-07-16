@@ -4,6 +4,7 @@
             "Jack Phoenix <jack@countervandalism.net>"
         ]
     },
+    "staffedit-desc": "Mahdollistaa muokkausten merkitsemisen virallisiksi [[Special:ListUsers/staff|henkilökunnan]] muokkauksiksi muokkausnäkymässä",
     "right-staffedit": "Merkitä muokkauksia virallisiksi henkilökunnan tekemiksi muokkauksiksi",
     "swstaffedit": "Viralliseksi ShoutWikin henkilökunnan muokkaukseksi",
     "staffedit-selector": "Merkitse tämä muokkaus:",

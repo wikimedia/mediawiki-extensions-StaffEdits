@@ -5,7 +5,7 @@
  *
  * @file
  * @ingroup Extensions
- * @version 0.1
+ * @version 0.1.1
  * @author Jack Phoenix <jack@countervandalism.net>
  * @link https://www.mediawiki.org/wiki/Extension:StaffEdits Documentation
  * @license https://en.wikipedia.org/wiki/Public_domain Public domain
@@ -21,7 +21,7 @@ $wgExtensionCredits['other'][] = array(
 	'name' => 'StaffEdits',
 	'version' => '0.1.1',
 	'author' => 'Jack Phoenix',
-	'description' => 'Allows to tag edits as "official [[Special:ListUsers/staff|staff]] edits" in the edit view',
+	'descriptionmsg' => 'staffedit-desc',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:StaffEdits',
 );
 

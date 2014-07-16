@@ -4,6 +4,7 @@
             "Jack Phoenix <jack@countervandalism.net>"
         ]
     },
+    "staffedit-desc": "Allows to tag edits as official [[Special:ListUsers/staff|staff]] edits in the edit view",
     "right-staffedit": "Tag edits as official staff edits",
     "swstaffedit": "Official ShoutWiki staff edit",
     "staffedit-selector": "Tag this edit as:",
