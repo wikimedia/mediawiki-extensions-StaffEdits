@@ -1,0 +1,13 @@
+{
+    "@metadata": {
+        "authors": [
+            "Jack Phoenix <jack@countervandalism.net>"
+        ]
+    },
+    "right-staffedit": "Merkitä muokkauksia virallisiksi [[s:w:fi:ShoutWikin henkilökunta|ShoutWikin henkilökunnan]] tekemiksi muokkauksiksi",
+    "staffedit": "Viralliseksi ShoutWikin henkilökunnan muokkaukseksi",
+    "staffedit-selector": "Merkitse tämä muokkaus:",
+    "staffedit-none": "ei miksikään",
+    "tag-staffedit": "[[s:w:fi:ShoutWikin henkilökunta|ShoutWikin henkilökunnan muokkaus]]",
+    "tag-staffedit-description": "[[s:w:fi:ShoutWikin henkilökunta|ShoutWikin henkilökunnan]] virallisessa roolissaan tekemä muokkaus"
+}
