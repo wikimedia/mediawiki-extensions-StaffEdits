@@ -19,7 +19,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,
 	'name' => 'StaffEdits',
-	'version' => '0.1',
+	'version' => '0.1.1',
 	'author' => 'Jack Phoenix',
 	'description' => 'Allows to tag edits as "official [[Special:ListUsers/staff|staff]] edits" in the edit view',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:StaffEdits',

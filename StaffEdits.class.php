@@ -8,12 +8,10 @@ class StaffEdits {
 	 * @param OutputPage $out
 	 * @return bool
 	 */
-	public static function onEditPage( $editPage, $out ) {
-		global $wgUser;
-
+	public static function onEditPage( EditPage $editPage, OutputPage $out ) {
 		// If the user isn't allowed to tag their edits as staff edits, get the
 		// hell out of here.
-		if ( !$wgUser->isAllowed( 'staffedit' ) ) {
+		if ( !$out->getUser()->isAllowed( 'staffedit' ) ) {
 			return true;
 		}
 
@@ -24,8 +22,8 @@ class StaffEdits {
 		// don't really need to give a damn about the copyright warning, as they
 		// should know the basics of (c)-right already. So let's just inject
 		// the selector below that -- at least it's still above div.editButtons!
-		$staffEditMsg = wfMessage( 'staffedit' )->plain();
-		$noneMsg = wfMessage( 'staffedit-none' )->plain();
+		$staffEditMsg = $out->msg( 'staffedit' )->plain();
+		$noneMsg = $out->msg( 'staffedit-none' )->plain();
 		$editPage->editFormTextAfterWarn .= wfMessage( 'staffedit-selector' )->plain() .
 		"<select name=\"staffedit-tag\">
 			<option value=\"\">{$noneMsg}</option>
@@ -54,10 +52,10 @@ class StaffEdits {
 	 * @return bool
 	 */
 	public static function onRecentChange_save( RecentChange $rc ) {
-		global $wgRequest, $wgUser;
+		global $wgRequest;
 
 		// Paranoia -- permission check, just in case
-		if ( !$wgUser->isAllowed( 'staffedit' ) ) {
+		if ( !$rc->getPerformer()->isAllowed( 'staffedit' ) ) {
 			return true;
 		}
 
