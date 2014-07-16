@@ -59,21 +59,17 @@ class StaffEdits {
 			return true;
 		}
 
-		$staffEditTag = $wgRequest->getVal( 'staffedit-tag' );
+		$addTag = $wgRequest->getBool( 'staffedit-tag' );
 
-		$logType = $rc->getAttribute( 'rc_log_type' );
+		$source = $rc->getAttribute( 'rc_source' );
 		// Only apply the tag for edits, nothing else, and only if we were given
 		// a tag to apply (!)
-		if ( is_null( $logType ) && !empty( $staffEditTag ) ) {
+		if ( $source === RecentChange::SRC_EDIT && $addTag ) {
 			$rcId = $rc->getAttribute( 'rc_id' );
 			$revId = $rc->getAttribute( 'rc_this_oldid' );
-			$logId = $rc->getAttribute( 'rc_logid' );
-			// If (when?) we want to support multiple _real_ options (i.e.
-			// something else than none & staffedit) in the selector, we'll
-			// need to change the 'staffedit' below to $staffEditTag to fetch
-			// the tag name from the request data. Until that, this approach is
-			// sufficient enough for our needs.
-			ChangeTags::addTags( 'staffedit', $rcId, $revId, $logId );
+			// In the future we might want to support different
+			// types of staff edit tags
+			ChangeTags::addTags( 'staffedit', $rcId, $revId );
 		}
 
 		return true;
