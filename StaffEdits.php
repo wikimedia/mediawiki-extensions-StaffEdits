@@ -49,3 +49,5 @@ $wgAutoloadClasses['StaffEdits'] = __DIR__ . '/StaffEdits.class.php';
 $wgHooks['EditPage::showEditForm:initial'][] = 'StaffEdits::onEditPage';
 $wgHooks['ListDefinedTags'][] = 'StaffEdits::onListDefinedTags';
 $wgHooks['RecentChange_save'][] = 'StaffEdits::onRecentChange_save';
+$wgHooks['ListDefinedTags'][] = 'StaffEdits::onListDefinedAndActiveTags';
+$wgHooks['ChangeTagsListActive'][] = 'StaffEdits::onListDefinedAndActiveTags';

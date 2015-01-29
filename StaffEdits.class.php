@@ -85,4 +85,15 @@ class StaffEdits {
 
 		return true;
 	}
+
+	/**
+	 * Registers, and marks as active, the staff edit change tag.
+	 *
+	 * @param array $tags
+	 * @return bool
+	 */
+	public static function onListDefinedAndActiveTags( array &$tags ) {
+		$tags[] = self::msgKey( 'staffedit' );
+		return true;
+	}
 }
