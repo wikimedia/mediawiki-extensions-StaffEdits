@@ -1,5 +1,14 @@
 <?php
-
+/**
+ * StaffEdits -- allows to tag edits as "official staff edits" in the edit
+ * view (action=edit)
+ *
+ * @file
+ * @ingroup Extensions
+ * @author Jack Phoenix <jack@countervandalism.net>
+ * @link https://www.mediawiki.org/wiki/Extension:StaffEdits Documentation
+ * @license https://en.wikipedia.org/wiki/Public_domain Public domain
+ */
 class StaffEdits {
 
 	/**

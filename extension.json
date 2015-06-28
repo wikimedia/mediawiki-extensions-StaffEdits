@@ -1,0 +1,50 @@
+{
+	"name": "StaffEdits",
+	"version": "0.1.3",
+	"author": [
+		"Jack Phoenix"
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:StaffEdits",
+	"descriptionmsg": "staffedit-desc",
+	"type": "other",
+	"config": {
+		"StaffEditsMessagePrefix": "sw"
+	},
+	"SpecialPages": {
+		"StaffEdits": "StaffEdits"
+	},
+	"MessagesDirs": {
+		"StaffEdits": [
+			"i18n"
+		]
+	},
+	"AutoloadClasses": {
+		"StaffEdits": "StaffEdits.class.php"
+	},
+	"Hooks": {
+		"EditPage::showEditForm:initial": [
+			"StaffEdits::onEditPage"
+		],
+		"ListDefinedTags": [
+			"StaffEdits::onListDefinedTags"
+		],
+		"RecentChange_save": [
+			"StaffEdits::onRecentChange_save"
+		],
+		"ListDefinedTags": [
+			"StaffEdits::onListDefinedAndActiveTags"
+		],
+		"ChangeTagsListActive": [
+			"StaffEdits::onListDefinedAndActiveTags"
+		]
+	},
+	"AvailableRights": [
+		"staffedit"
+	],
+	"GroupPermissions": {
+		"staff": {
+			"staffedit": true
+		}
+	},
+	"manifest_version": 1
+}
