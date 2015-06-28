@@ -5,7 +5,7 @@
  *
  * @file
  * @ingroup Extensions
- * @version 0.1.1
+ * @version 0.1.2
  * @author Jack Phoenix <jack@countervandalism.net>
  * @link https://www.mediawiki.org/wiki/Extension:StaffEdits Documentation
  * @license https://en.wikipedia.org/wiki/Public_domain Public domain
@@ -19,7 +19,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,
 	'name' => 'StaffEdits',
-	'version' => '0.1.1',
+	'version' => '0.1.2',
 	'author' => 'Jack Phoenix',
 	'descriptionmsg' => 'staffedit-desc',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:StaffEdits',

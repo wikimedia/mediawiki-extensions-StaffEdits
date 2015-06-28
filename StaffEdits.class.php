@@ -75,7 +75,7 @@ class StaffEdits {
 		$source = $rc->getAttribute( 'rc_source' );
 		// Only apply the tag for edits, nothing else, and only if we were given
 		// a tag to apply (!)
-		if ( $source === RecentChange::SRC_EDIT && $addTag ) {
+		if ( in_array( $source, array( RecentChange::SRC_EDIT, RecentChange::SRC_NEW ) ) && $addTag ) {
 			$rcId = $rc->getAttribute( 'rc_id' );
 			$revId = $rc->getAttribute( 'rc_this_oldid' );
 			// In the future we might want to support different
