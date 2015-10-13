@@ -1,14 +1,14 @@
 {
-    "@metadata": {
-        "authors": [
-            "Jack Phoenix <jack@countervandalism.net>"
-        ]
-    },
-    "staffedit-desc": "Allows to tag edits as official [[Special:ListUsers/staff|staff]] edits in the edit view",
-    "right-staffedit": "Tag edits as official staff edits",
-    "swstaffedit": "Official ShoutWiki staff edit",
-    "staffedit-selector": "Tag this edit as:",
-    "staffedit-none": "none",
-    "tag-swstaffedit": "[[s:ShoutWiki Staff|ShoutWiki staff edit]]",
-    "tag-swstaffedit-description": "Edits made by [[s:ShoutWiki Staff|ShoutWiki staff]] in their official capacity"
+	"@metadata": {
+		"authors": [
+			"Jack Phoenix <jack@countervandalism.net>"
+		]
+	},
+	"staffedit-desc": "Allows to tag edits as official [[Special:ListUsers/staff|staff]] edits in the edit view",
+	"right-staffedit": "Tag edits as official staff edits",
+	"swstaffedit": "Official ShoutWiki staff edit",
+	"staffedit-selector": "Tag this edit as:",
+	"staffedit-none": "none",
+	"tag-swstaffedit": "[[s:ShoutWiki Staff|ShoutWiki staff edit]]",
+	"tag-swstaffedit-description": "Edits made by [[s:ShoutWiki Staff|ShoutWiki staff]] in their official capacity"
 }
