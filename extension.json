@@ -10,9 +10,6 @@
 	"config": {
 		"StaffEditsMessagePrefix": "sw"
 	},
-	"SpecialPages": {
-		"StaffEdits": "StaffEdits"
-	},
 	"MessagesDirs": {
 		"StaffEdits": [
 			"i18n"
