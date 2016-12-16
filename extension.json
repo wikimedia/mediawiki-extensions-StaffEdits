@@ -28,9 +28,6 @@
 		"RecentChange_save": [
 			"StaffEdits::onRecentChange_save"
 		],
-		"ListDefinedTags": [
-			"StaffEdits::onListDefinedAndActiveTags"
-		],
 		"ChangeTagsListActive": [
 			"StaffEdits::onListDefinedAndActiveTags"
 		]
