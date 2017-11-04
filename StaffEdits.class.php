@@ -42,9 +42,9 @@ class StaffEdits {
 		// don't really need to give a damn about the copyright warning, as they
 		// should know the basics of (c)-right already. So let's just inject
 		// the selector below that -- at least it's still above div.editButtons!
-		$staffEditMsg = $out->msg( self::msgKey( 'staffedit' ) )->plain();
-		$noneMsg = $out->msg( 'staffedit-none' )->plain();
-		$editPage->editFormTextAfterWarn .= wfMessage( 'staffedit-selector' )->plain() .
+		$staffEditMsg = $out->msg( self::msgKey( 'staffedit' ) )->escaped();
+		$noneMsg = $out->msg( 'staffedit-none' )->escaped();
+		$editPage->editFormTextAfterWarn .= $out->msg( 'staffedit-selector' )->escaped() .
 		"<select name=\"staffedit-tag\">
 			<option value=\"\">{$noneMsg}</option>
 			<option value=\"staffedit\">{$staffEditMsg}</option>
