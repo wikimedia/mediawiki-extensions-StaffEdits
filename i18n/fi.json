@@ -1,7 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
-			"Jack Phoenix <jack@countervandalism.net>"
+			"Jack Phoenix"
 		]
 	},
 	"staffedit-desc": "Mahdollistaa muokkausten merkitsemisen virallisiksi [[Special:ListUsers/staff|henkilökunnan]] muokkauksiksi muokkausnäkymässä",

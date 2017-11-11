@@ -1,7 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
-			"Jack Phoenix <jack@countervandalism.net>"
+			"Jack Phoenix"
 		]
 	},
 	"staffedit-desc": "{{desc|name=StaffEdits|url=https://www.mediawiki.org/wiki/Extension:StaffEdits}}\nDo not translate the \"Special:ListUsers/staff\" part of the link.",

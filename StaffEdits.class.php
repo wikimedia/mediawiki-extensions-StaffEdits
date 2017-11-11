@@ -5,7 +5,7 @@
  *
  * @file
  * @ingroup Extensions
- * @author Jack Phoenix <jack@countervandalism.net>
+ * @author Jack Phoenix
  * @link https://www.mediawiki.org/wiki/Extension:StaffEdits Documentation
  * @license https://en.wikipedia.org/wiki/Public_domain Public domain
  */
