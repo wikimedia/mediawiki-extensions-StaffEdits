@@ -1,7 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
-			"Jack Phoenix <jack@countervandalism.net>"
+			"Jack Phoenix"
 		]
 	},
 	"staffedit-desc": "Allows to tag edits as official [[Special:ListUsers/staff|staff]] edits in the edit view",
