@@ -5,6 +5,7 @@
 		]
 	},
 	"staffedit-desc": "Allows to tag edits as official [[Special:ListUsers/staff|staff]] edits in the edit view",
+	"action-staffedit": "tag edits as official staff edits",
 	"right-staffedit": "Tag edits as official staff edits",
 	"swstaffedit": "Official ShoutWiki staff edit",
 	"staffedit-selector": "Tag this edit as:",

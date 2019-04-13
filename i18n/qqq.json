@@ -5,6 +5,7 @@
 		]
 	},
 	"staffedit-desc": "{{desc|name=StaffEdits|url=https://www.mediawiki.org/wiki/Extension:StaffEdits}}\nDo not translate the \"Special:ListUsers/staff\" part of the link.",
+	"action-staffedit": "{{doc-action|staffedit}}",
 	"right-staffedit": "{{doc-right|staffedit}}",
 	"swstaffedit": "A drop-down menu choice, which indicates that the current edit will be tagged as an officail staff edit. See also [[MediaWiki:Staffedit-selector]], [[MediaWiki:Staffedit-none]] and [[mw:Extension:StaffEdits|the extension documentation and screenshots on MediaWiki.org]].",
 	"staffedit-selector": "Label for the drop-down menu shown on the edit view; in the user interface, this is followed by a drop-down menu (HTML <code>&lt;select&gt;</code> element) which contains items such as [[MediaWiki:Staffedit-none]], [[MediaWiki:Swstaffedit]], etc.",
