@@ -21,6 +21,7 @@ class StaffEdits {
 		global $wgStaffEditsMessagePrefix;
 		return $wgStaffEditsMessagePrefix . $name;
 	}
+
 	/**
 	 * Display the tag selector drop-down menu on action=edit view.
 	 *
@@ -84,7 +85,7 @@ class StaffEdits {
 		$source = $rc->getAttribute( 'rc_source' );
 		// Only apply the tag for edits, nothing else, and only if we were given
 		// a tag to apply (!)
-		if ( in_array( $source, array( RecentChange::SRC_EDIT, RecentChange::SRC_NEW ) ) && $addTag ) {
+		if ( in_array( $source, [ RecentChange::SRC_EDIT, RecentChange::SRC_NEW ] ) && $addTag ) {
 			$rcId = $rc->getAttribute( 'rc_id' );
 			$revId = $rc->getAttribute( 'rc_this_oldid' );
 			// In the future we might want to support different
@@ -98,7 +99,7 @@ class StaffEdits {
 	/**
 	 * Registers, and marks as active, the staff edit change tag.
 	 *
-	 * @param array $tags
+	 * @param array &$tags
 	 * @return bool
 	 */
 	public static function onListDefinedAndActiveTags( array &$tags ) {

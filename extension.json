@@ -16,7 +16,7 @@
 		]
 	},
 	"AutoloadClasses": {
-		"StaffEdits": "StaffEdits.class.php"
+		"StaffEdits": "StaffEdits.php"
 	},
 	"Hooks": {
 		"EditPage::showEditForm:initial": [
