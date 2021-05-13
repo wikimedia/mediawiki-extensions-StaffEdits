@@ -9,6 +9,8 @@
  * @link https://www.mediawiki.org/wiki/Extension:StaffEdits Documentation
  * @license https://en.wikipedia.org/wiki/Public_domain Public domain
  */
+use MediaWiki\MediaWikiServices;
+
 class StaffEdits {
 
 	/**
@@ -76,7 +78,8 @@ class StaffEdits {
 		global $wgRequest;
 
 		// Paranoia -- permission check, just in case
-		if ( !$rc->getPerformer()->isAllowed( 'staffedit' ) ) {
+		$user = MediaWikiServices::getInstance()->getUserFactory()->newFromUserIdentity( $rc->getPerformerIdentity() );
+		if ( !$user->isAllowed( 'staffedit' ) ) {
 			return true;
 		}
 
