@@ -1,4 +1,5 @@
 {
+	"name": "StaffEdits",
 	"private": true,
 	"scripts": {
 		"test": "grunt test"
