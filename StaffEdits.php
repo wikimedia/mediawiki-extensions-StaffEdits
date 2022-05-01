@@ -78,7 +78,14 @@ class StaffEdits {
 		global $wgRequest;
 
 		// Paranoia -- permission check, just in case
-		$user = MediaWikiServices::getInstance()->getUserFactory()->newFromUserIdentity( $rc->getPerformerIdentity() );
+		if ( method_exists( $rc, 'getPerformerIdentity' ) ) {
+			// MW 1.36+
+			$user = MediaWikiServices::getInstance()->getUserFactory()
+				->newFromUserIdentity( $rc->getPerformerIdentity() );
+		} else {
+			// MW 1.35
+			$user = $rc->getPerformer();
+		}
 		if ( !$user->isAllowed( 'staffedit' ) ) {
 			return true;
 		}
