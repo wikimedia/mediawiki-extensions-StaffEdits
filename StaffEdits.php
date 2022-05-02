@@ -90,7 +90,7 @@ class StaffEdits {
 			return true;
 		}
 
-		$addTag = $wgRequest->getBool( 'staffedit-tag' );
+		$addTag = ( $wgRequest->getVal( 'staffedit-tag' ) === 'staffedit' );
 
 		$source = $rc->getAttribute( 'rc_source' );
 		// Only apply the tag for edits, nothing else, and only if we were given
