@@ -29,13 +29,13 @@ class StaffEdits {
 	 *
 	 * @param EditPage $editPage
 	 * @param OutputPage $out
-	 * @return bool
+	 * @return void
 	 */
 	public static function onEditPage( EditPage $editPage, OutputPage $out ) {
 		// If the user isn't allowed to tag their edits as staff edits, get the
 		// hell out of here.
 		if ( !$out->getUser()->isAllowed( 'staffedit' ) ) {
-			return true;
+			return;
 		}
 
 		// Ideally there'd be a better way to do this, but once again good ol'
@@ -52,19 +52,16 @@ class StaffEdits {
 			<option value=\"\">{$noneMsg}</option>
 			<option value=\"staffedit\">{$staffEditMsg}</option>
 		</select>";
-
-		return true;
 	}
 
 	/**
 	 * Add our new tag to the array of existing tags.
 	 *
 	 * @param array &$tags
-	 * @return bool
+	 * @return void
 	 */
 	public static function onListDefinedTags( array &$tags ) {
 		$tags[] = self::msgKey( 'staffedit' );
-		return true;
 	}
 
 	/**
@@ -72,7 +69,7 @@ class StaffEdits {
 	 * requested.
 	 *
 	 * @param RecentChange $rc
-	 * @return bool
+	 * @return void
 	 */
 	public static function onRecentChange_save( RecentChange $rc ) {
 		global $wgRequest;
@@ -87,7 +84,7 @@ class StaffEdits {
 			$user = $rc->getPerformer();
 		}
 		if ( !$user->isAllowed( 'staffedit' ) ) {
-			return true;
+			return;
 		}
 
 		$addTag = ( $wgRequest->getVal( 'staffedit-tag' ) === 'staffedit' );
@@ -102,18 +99,15 @@ class StaffEdits {
 			// types of staff edit tags
 			ChangeTags::addTags( self::msgKey( 'staffedit' ), $rcId, $revId );
 		}
-
-		return true;
 	}
 
 	/**
 	 * Registers, and marks as active, the staff edit change tag.
 	 *
 	 * @param array &$tags
-	 * @return bool
+	 * @return void
 	 */
 	public static function onListDefinedAndActiveTags( array &$tags ) {
 		$tags[] = self::msgKey( 'staffedit' );
-		return true;
 	}
 }

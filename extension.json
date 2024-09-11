@@ -22,18 +22,10 @@
 		"StaffEdits": "StaffEdits.php"
 	},
 	"Hooks": {
-		"EditPage::showEditForm:initial": [
-			"StaffEdits::onEditPage"
-		],
-		"ListDefinedTags": [
-			"StaffEdits::onListDefinedTags"
-		],
-		"RecentChange_save": [
-			"StaffEdits::onRecentChange_save"
-		],
-		"ChangeTagsListActive": [
-			"StaffEdits::onListDefinedAndActiveTags"
-		]
+		"EditPage::showEditForm:initial": "StaffEdits::onEditPage",
+		"ListDefinedTags": "StaffEdits::onListDefinedTags",
+		"RecentChange_save": "StaffEdits::onRecentChange_save",
+		"ChangeTagsListActive": "StaffEdits::onListDefinedAndActiveTags"
 	},
 	"AvailableRights": [
 		"staffedit"
