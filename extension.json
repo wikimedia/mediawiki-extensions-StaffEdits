@@ -1,6 +1,6 @@
 {
 	"name": "StaffEdits",
-	"version": "0.1.5",
+	"version": "0.2",
 	"author": [
 		"Jack Phoenix"
 	],
@@ -11,7 +11,16 @@
 		"MediaWiki": ">= 1.35.0"
 	},
 	"config": {
-		"StaffEditsMessagePrefix": "sw"
+		"StaffEditsMessagePrefix": {
+			"description": "Short, organization-specific prefix used to build i18n message keys etc.",
+			"value": "sw"
+		},
+		"StaffEditsTags": {
+			"description": "A list of tags (without the prefix defined by $wgStaffEditsMessagePrefix). The associated user right needed to apply the tag in question is always derived from the tag name itself, e.g. the tag \"swstaffedit\" has the associated user right \"staffedit\".",
+			"value": [
+				"staffedit"
+			]
+		}
 	},
 	"MessagesDirs": {
 		"StaffEdits": [
@@ -35,5 +44,5 @@
 			"staffedit": true
 		}
 	},
-	"manifest_version": 1
+	"manifest_version": 2
 }

@@ -32,9 +32,21 @@ class StaffEdits {
 	 * @return void
 	 */
 	public static function onEditPage( $editPage, $out ) {
+		global $wgStaffEditsTags;
+
 		// If the user isn't allowed to tag their edits as staff edits, get the
 		// hell out of here.
-		if ( !$out->getUser()->isAllowed( 'staffedit' ) ) {
+		$anyTagAllowed = false;
+		$allowedTags = [];
+		foreach ( $wgStaffEditsTags as $tag ) {
+			if ( $out->getUser()->isAllowed( $tag ) ) {
+				$anyTagAllowed = true;
+				$allowedTags[$tag] = true;
+			} else {
+				$allowedTags[$tag] = false;
+			}
+		}
+		if ( !$anyTagAllowed ) {
 			return;
 		}
 
@@ -45,23 +57,31 @@ class StaffEdits {
 		// don't really need to give a damn about the copyright warning, as they
 		// should know the basics of (c)-right already. So let's just inject
 		// the selector below that -- at least it's still above div.editButtons!
-		$staffEditMsg = $out->msg( self::msgKey( 'staffedit' ) )->escaped();
 		$noneMsg = $out->msg( 'staffedit-none' )->escaped();
-		$editPage->editFormTextAfterWarn .= $out->msg( 'staffedit-selector' )->escaped() .
-		"<select name=\"staffedit-tag\">
-			<option value=\"\">{$noneMsg}</option>
-			<option value=\"staffedit\">{$staffEditMsg}</option>
-		</select>";
+		$editPage->editFormTextAfterWarn .= $out->msg( 'staffedit-selector' )->escaped()
+			. "<select name=\"staffedit-tag\">"
+			. "<option value=\"\">{$noneMsg}</option>";
+		foreach ( $wgStaffEditsTags as $tag ) {
+			if ( !$allowedTags[$tag] ) {
+				continue;
+			}
+			$tagMsg = $out->msg( self::msgKey( $tag ) )->escaped();
+			$editPage->editFormTextAfterWarn .= "<option value=\"{$tag}\">{$tagMsg}</option>";
+		}
+		$editPage->editFormTextAfterWarn .= "</select>";
 	}
 
 	/**
-	 * Add our new tag to the array of existing tags.
+	 * Add our new tag(s) to the array of existing tags.
 	 *
 	 * @param array &$tags
 	 * @return void
 	 */
 	public static function onListDefinedTags( array &$tags ) {
-		$tags[] = self::msgKey( 'staffedit' );
+		global $wgStaffEditsTags;
+		foreach ( $wgStaffEditsTags as $tag ) {
+			$tags[] = self::msgKey( $tag );
+		}
 	}
 
 	/**
@@ -72,7 +92,7 @@ class StaffEdits {
 	 * @return void
 	 */
 	public static function onRecentChange_save( RecentChange $rc ) {
-		global $wgRequest;
+		global $wgRequest, $wgStaffEditsTags;
 
 		// Paranoia -- permission check, just in case
 		if ( method_exists( $rc, 'getPerformerIdentity' ) ) {
@@ -83,31 +103,36 @@ class StaffEdits {
 			// MW 1.35
 			$user = $rc->getPerformer();
 		}
-		if ( !$user->isAllowed( 'staffedit' ) ) {
-			return;
-		}
-
-		$addTag = ( $wgRequest->getVal( 'staffedit-tag' ) === 'staffedit' );
 
 		$source = $rc->getAttribute( 'rc_source' );
-		// Only apply the tag for edits, nothing else, and only if we were given
-		// a tag to apply (!)
-		if ( in_array( $source, [ RecentChange::SRC_EDIT, RecentChange::SRC_NEW ] ) && $addTag ) {
-			$rcId = $rc->getAttribute( 'rc_id' );
-			$revId = $rc->getAttribute( 'rc_this_oldid' );
-			// In the future we might want to support different
-			// types of staff edit tags
-			ChangeTags::addTags( self::msgKey( 'staffedit' ), $rcId, $revId );
+
+		foreach ( $wgStaffEditsTags as $tag ) {
+			if ( $user->isAllowed( $tag ) ) {
+				$addTag = ( $wgRequest->getVal( 'staffedit-tag' ) === $tag );
+
+				// Only apply the tag for edits, nothing else, and only if we were given
+				// a tag to apply (!)
+				if ( in_array( $source, [ RecentChange::SRC_EDIT, RecentChange::SRC_NEW ] ) && $addTag ) {
+					$rcId = $rc->getAttribute( 'rc_id' );
+					$revId = $rc->getAttribute( 'rc_this_oldid' );
+					// In the future we might want to support different
+					// types of staff edit tags
+					ChangeTags::addTags( self::msgKey( $tag ), $rcId, $revId );
+				}
+			}
 		}
 	}
 
 	/**
-	 * Registers, and marks as active, the staff edit change tag.
+	 * Registers, and marks as active, the staff edit change tag(s).
 	 *
 	 * @param array &$tags
 	 * @return void
 	 */
 	public static function onListDefinedAndActiveTags( array &$tags ) {
-		$tags[] = self::msgKey( 'staffedit' );
+		global $wgStaffEditsTags;
+		foreach ( $wgStaffEditsTags as $tag ) {
+			$tags[] = self::msgKey( $tag );
+		}
 	}
 }
