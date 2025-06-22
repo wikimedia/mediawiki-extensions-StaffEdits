@@ -27,11 +27,11 @@ class StaffEdits {
 	/**
 	 * Display the tag selector drop-down menu on action=edit view.
 	 *
-	 * @param EditPage $editPage
-	 * @param OutputPage $out
+	 * @param MediaWiki\EditPage\EditPage $editPage
+	 * @param MediaWiki\Output\OutputPage $out
 	 * @return void
 	 */
-	public static function onEditPage( EditPage $editPage, OutputPage $out ) {
+	public static function onEditPage( $editPage, $out ) {
 		// If the user isn't allowed to tag their edits as staff edits, get the
 		// hell out of here.
 		if ( !$out->getUser()->isAllowed( 'staffedit' ) ) {
