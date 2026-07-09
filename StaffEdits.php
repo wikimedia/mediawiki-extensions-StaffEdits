@@ -95,9 +95,10 @@ class StaffEdits {
 		global $wgRequest, $wgStaffEditsTags;
 
 		// Paranoia -- permission check, just in case
+		$services = MediaWikiServices::getInstance();
 		if ( method_exists( $rc, 'getPerformerIdentity' ) ) {
 			// MW 1.36+
-			$user = MediaWikiServices::getInstance()->getUserFactory()
+			$user = $services->getUserFactory()
 				->newFromUserIdentity( $rc->getPerformerIdentity() );
 		} else {
 			// MW 1.35
@@ -115,9 +116,16 @@ class StaffEdits {
 				if ( in_array( $source, [ RecentChange::SRC_EDIT, RecentChange::SRC_NEW ] ) && $addTag ) {
 					$rcId = $rc->getAttribute( 'rc_id' );
 					$revId = $rc->getAttribute( 'rc_this_oldid' );
+
 					// In the future we might want to support different
 					// types of staff edit tags
-					ChangeTags::addTags( self::msgKey( $tag ), $rcId, $revId );
+					if ( $services->has( 'ChangeTagsStore' ) ) {
+						// MW 1.44+
+						$user = $services->getChangeTagsStore()->addTags( self::msgKey( $tag ), $rcId, $revId );
+					} else {
+						// MW 1.35 - 1.43
+						ChangeTags::addTags( self::msgKey( $tag ), $rcId, $revId );
+					}
 				}
 			}
 		}

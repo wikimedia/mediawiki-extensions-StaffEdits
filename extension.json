@@ -30,6 +30,9 @@
 	"AutoloadClasses": {
 		"StaffEdits": "StaffEdits.php"
 	},
+	"TestAutoloadNamespaces": {
+		"MediaWiki\\Extension\\StaffEdits\\Tests\\": "tests/phpunit/"
+	},
 	"Hooks": {
 		"EditPage::showEditForm:initial": "StaffEdits::onEditPage",
 		"ListDefinedTags": "StaffEdits::onListDefinedTags",
