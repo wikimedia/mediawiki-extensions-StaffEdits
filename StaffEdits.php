@@ -11,6 +11,7 @@
  */
 use MediaWiki\ChangeTags\ChangeTagsStore;
 use MediaWiki\Config\Config;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\User\UserFactory;
 
 class StaffEdits implements
@@ -108,8 +109,6 @@ class StaffEdits implements
 	 * @return void
 	 */
 	public function onRecentChange_save( $rc ) {
-		global $wgRequest;
-
 		// Paranoia -- permission check, just in case
 		$user = $this->userFactory->newFromUserIdentity( $rc->getPerformerIdentity() );
 
@@ -117,7 +116,7 @@ class StaffEdits implements
 
 		foreach ( $this->config->get( 'StaffEditsTags' ) as $tag ) {
 			if ( $user->isAllowed( $tag ) ) {
-				$addTag = ( $wgRequest->getVal( 'staffedit-tag' ) === $tag );
+				$addTag = ( RequestContext::getMain()->getRequest()->getVal( 'staffedit-tag' ) === $tag );
 
 				// Only apply the tag for edits, nothing else, and only if we were given
 				// a tag to apply (!)
