@@ -11,7 +11,12 @@
  */
 use MediaWiki\MediaWikiServices;
 
-class StaffEdits {
+class StaffEdits implements
+	\MediaWiki\ChangeTags\Hook\ChangeTagsListActiveHook,
+	\MediaWiki\ChangeTags\Hook\ListDefinedTagsHook,
+	\MediaWiki\Hook\EditPage__showEditForm_initialHook,
+	\MediaWiki\Hook\RecentChange_saveHook
+{
 
 	/**
 	 * Returns an organization specific message key
@@ -31,7 +36,7 @@ class StaffEdits {
 	 * @param MediaWiki\Output\OutputPage $out
 	 * @return void
 	 */
-	public static function onEditPage( $editPage, $out ) {
+	public function onEditPage__showEditForm_initial( $editPage, $out ) {
 		global $wgStaffEditsTags;
 
 		// If the user isn't allowed to tag their edits as staff edits, get the
@@ -77,7 +82,7 @@ class StaffEdits {
 	 * @param array &$tags
 	 * @return void
 	 */
-	public static function onListDefinedTags( array &$tags ) {
+	public function onListDefinedTags( &$tags ) {
 		global $wgStaffEditsTags;
 		foreach ( $wgStaffEditsTags as $tag ) {
 			$tags[] = self::msgKey( $tag );
@@ -91,7 +96,7 @@ class StaffEdits {
 	 * @param RecentChange $rc
 	 * @return void
 	 */
-	public static function onRecentChange_save( RecentChange $rc ) {
+	public function onRecentChange_save( $rc ) {
 		global $wgRequest, $wgStaffEditsTags;
 
 		// Paranoia -- permission check, just in case
@@ -137,7 +142,7 @@ class StaffEdits {
 	 * @param array &$tags
 	 * @return void
 	 */
-	public static function onListDefinedAndActiveTags( array &$tags ) {
+	public function onChangeTagsListActive( &$tags ) {
 		global $wgStaffEditsTags;
 		foreach ( $wgStaffEditsTags as $tag ) {
 			$tags[] = self::msgKey( $tag );
