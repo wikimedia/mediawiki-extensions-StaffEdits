@@ -9,7 +9,8 @@
  * @link https://www.mediawiki.org/wiki/Extension:StaffEdits Documentation
  * @license https://en.wikipedia.org/wiki/Public_domain Public domain
  */
-use MediaWiki\MediaWikiServices;
+use MediaWiki\ChangeTags\ChangeTagsStore;
+use MediaWiki\User\UserFactory;
 
 class StaffEdits implements
 	\MediaWiki\ChangeTags\Hook\ChangeTagsListActiveHook,
@@ -17,6 +18,16 @@ class StaffEdits implements
 	\MediaWiki\Hook\EditPage__showEditForm_initialHook,
 	\MediaWiki\Hook\RecentChange_saveHook
 {
+	private ChangeTagsStore $changeTagsStore;
+	private UserFactory $userFactory;
+
+	public function __construct(
+		ChangeTagsStore $changeTagsStore,
+		UserFactory $userFactory,
+	) {
+		$this->changeTagsStore = $changeTagsStore;
+		$this->userFactory = $userFactory;
+	}
 
 	/**
 	 * Returns an organization specific message key
@@ -100,9 +111,7 @@ class StaffEdits implements
 		global $wgRequest, $wgStaffEditsTags;
 
 		// Paranoia -- permission check, just in case
-		$services = MediaWikiServices::getInstance();
-		$user = $services->getUserFactory()
-			->newFromUserIdentity( $rc->getPerformerIdentity() );
+		$user = $this->userFactory->newFromUserIdentity( $rc->getPerformerIdentity() );
 
 		$source = $rc->getAttribute( 'rc_source' );
 
@@ -118,7 +127,7 @@ class StaffEdits implements
 
 					// In the future we might want to support different
 					// types of staff edit tags
-					$user = $services->getChangeTagsStore()->addTags( self::msgKey( $tag ), $rcId, $revId );
+					$user = $this->changeTagsStore->addTags( self::msgKey( $tag ), $rcId, $revId );
 				}
 			}
 		}

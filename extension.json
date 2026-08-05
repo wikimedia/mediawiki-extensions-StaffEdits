@@ -35,7 +35,11 @@
 	},
 	"HookHandlers": {
 		"main": {
-			"class": "StaffEdits"
+			"class": "StaffEdits",
+			"services": [
+				"ChangeTagsStore",
+				"UserFactory"
+			]
 		}
 	},
 	"Hooks": {
