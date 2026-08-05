@@ -101,14 +101,8 @@ class StaffEdits implements
 
 		// Paranoia -- permission check, just in case
 		$services = MediaWikiServices::getInstance();
-		if ( method_exists( $rc, 'getPerformerIdentity' ) ) {
-			// MW 1.36+
-			$user = $services->getUserFactory()
-				->newFromUserIdentity( $rc->getPerformerIdentity() );
-		} else {
-			// MW 1.35
-			$user = $rc->getPerformer();
-		}
+		$user = $services->getUserFactory()
+			->newFromUserIdentity( $rc->getPerformerIdentity() );
 
 		$source = $rc->getAttribute( 'rc_source' );
 
@@ -124,13 +118,7 @@ class StaffEdits implements
 
 					// In the future we might want to support different
 					// types of staff edit tags
-					if ( $services->has( 'ChangeTagsStore' ) ) {
-						// MW 1.44+
-						$user = $services->getChangeTagsStore()->addTags( self::msgKey( $tag ), $rcId, $revId );
-					} else {
-						// MW 1.35 - 1.43
-						ChangeTags::addTags( self::msgKey( $tag ), $rcId, $revId );
-					}
+					$user = $services->getChangeTagsStore()->addTags( self::msgKey( $tag ), $rcId, $revId );
 				}
 			}
 		}
