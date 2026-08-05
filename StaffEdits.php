@@ -12,13 +12,16 @@
 use MediaWiki\ChangeTags\ChangeTagsStore;
 use MediaWiki\Config\Config;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\EditPage\EditPage;
+use MediaWiki\Output\OutputPage;
+use MediaWiki\RecentChanges\RecentChange;
 use MediaWiki\User\UserFactory;
 
 class StaffEdits implements
 	\MediaWiki\ChangeTags\Hook\ChangeTagsListActiveHook,
 	\MediaWiki\ChangeTags\Hook\ListDefinedTagsHook,
 	\MediaWiki\Hook\EditPage__showEditForm_initialHook,
-	\MediaWiki\Hook\RecentChange_saveHook
+	\MediaWiki\RecentChanges\Hook\RecentChange_saveHook
 {
 	private Config $config;
 	private ChangeTagsStore $changeTagsStore;
@@ -47,8 +50,8 @@ class StaffEdits implements
 	/**
 	 * Display the tag selector drop-down menu on action=edit view.
 	 *
-	 * @param MediaWiki\EditPage\EditPage $editPage
-	 * @param MediaWiki\Output\OutputPage $out
+	 * @param EditPage $editPage
+	 * @param OutputPage $out
 	 * @return void
 	 */
 	public function onEditPage__showEditForm_initial( $editPage, $out ) {
