@@ -10,6 +10,7 @@
  * @license https://en.wikipedia.org/wiki/Public_domain Public domain
  */
 use MediaWiki\ChangeTags\ChangeTagsStore;
+use MediaWiki\Config\Config;
 use MediaWiki\User\UserFactory;
 
 class StaffEdits implements
@@ -18,13 +19,16 @@ class StaffEdits implements
 	\MediaWiki\Hook\EditPage__showEditForm_initialHook,
 	\MediaWiki\Hook\RecentChange_saveHook
 {
+	private Config $config;
 	private ChangeTagsStore $changeTagsStore;
 	private UserFactory $userFactory;
 
 	public function __construct(
+		Config $config,
 		ChangeTagsStore $changeTagsStore,
 		UserFactory $userFactory,
 	) {
+		$this->config = $config;
 		$this->changeTagsStore = $changeTagsStore;
 		$this->userFactory = $userFactory;
 	}
@@ -35,9 +39,8 @@ class StaffEdits implements
 	 * @param string $name
 	 * @return string
 	 */
-	protected static function msgKey( $name ) {
-		global $wgStaffEditsMessagePrefix;
-		return $wgStaffEditsMessagePrefix . $name;
+	protected function msgKey( $name ) {
+		return $this->config->get( 'StaffEditsMessagePrefix' ) . $name;
 	}
 
 	/**
@@ -48,13 +51,11 @@ class StaffEdits implements
 	 * @return void
 	 */
 	public function onEditPage__showEditForm_initial( $editPage, $out ) {
-		global $wgStaffEditsTags;
-
 		// If the user isn't allowed to tag their edits as staff edits, get the
 		// hell out of here.
 		$anyTagAllowed = false;
 		$allowedTags = [];
-		foreach ( $wgStaffEditsTags as $tag ) {
+		foreach ( $this->config->get( 'StaffEditsTags' ) as $tag ) {
 			if ( $out->getUser()->isAllowed( $tag ) ) {
 				$anyTagAllowed = true;
 				$allowedTags[$tag] = true;
@@ -77,11 +78,11 @@ class StaffEdits implements
 		$editPage->editFormTextAfterWarn .= $out->msg( 'staffedit-selector' )->escaped()
 			. "<select name=\"staffedit-tag\">"
 			. "<option value=\"\">{$noneMsg}</option>";
-		foreach ( $wgStaffEditsTags as $tag ) {
+		foreach ( $this->config->get( 'StaffEditsTags' ) as $tag ) {
 			if ( !$allowedTags[$tag] ) {
 				continue;
 			}
-			$tagMsg = $out->msg( self::msgKey( $tag ) )->escaped();
+			$tagMsg = $out->msg( $this->msgKey( $tag ) )->escaped();
 			$editPage->editFormTextAfterWarn .= "<option value=\"{$tag}\">{$tagMsg}</option>";
 		}
 		$editPage->editFormTextAfterWarn .= "</select>";
@@ -94,9 +95,8 @@ class StaffEdits implements
 	 * @return void
 	 */
 	public function onListDefinedTags( &$tags ) {
-		global $wgStaffEditsTags;
-		foreach ( $wgStaffEditsTags as $tag ) {
-			$tags[] = self::msgKey( $tag );
+		foreach ( $this->config->get( 'StaffEditsTags' ) as $tag ) {
+			$tags[] = $this->msgKey( $tag );
 		}
 	}
 
@@ -108,14 +108,14 @@ class StaffEdits implements
 	 * @return void
 	 */
 	public function onRecentChange_save( $rc ) {
-		global $wgRequest, $wgStaffEditsTags;
+		global $wgRequest;
 
 		// Paranoia -- permission check, just in case
 		$user = $this->userFactory->newFromUserIdentity( $rc->getPerformerIdentity() );
 
 		$source = $rc->getAttribute( 'rc_source' );
 
-		foreach ( $wgStaffEditsTags as $tag ) {
+		foreach ( $this->config->get( 'StaffEditsTags' ) as $tag ) {
 			if ( $user->isAllowed( $tag ) ) {
 				$addTag = ( $wgRequest->getVal( 'staffedit-tag' ) === $tag );
 
@@ -127,7 +127,7 @@ class StaffEdits implements
 
 					// In the future we might want to support different
 					// types of staff edit tags
-					$user = $this->changeTagsStore->addTags( self::msgKey( $tag ), $rcId, $revId );
+					$user = $this->changeTagsStore->addTags( $this->msgKey( $tag ), $rcId, $revId );
 				}
 			}
 		}
@@ -140,9 +140,8 @@ class StaffEdits implements
 	 * @return void
 	 */
 	public function onChangeTagsListActive( &$tags ) {
-		global $wgStaffEditsTags;
-		foreach ( $wgStaffEditsTags as $tag ) {
-			$tags[] = self::msgKey( $tag );
+		foreach ( $this->config->get( 'StaffEditsTags' ) as $tag ) {
+			$tags[] = $this->msgKey( $tag );
 		}
 	}
 }
